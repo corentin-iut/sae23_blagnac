@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Informations de connexion à la base de données MySQL
-host="fdb1027.eohost.com"
-user="4210695_sae23"
-password="BARCATFRAPRA31"
+host=fdb1027.eohost.com
+user=4210695_sae23
+password=motdepasse31
 port=3306
-database="4210695_sae23"  # Remplacez "votre_base_de_donnees" par le nom de votre base de données
+database=4210695_sae23  # Remplacez "votre_base_de_donnees" par le nom de votre base de données
 
 # Callback exécutée lors de la connexion au broker MQTT
 on_connect() {
