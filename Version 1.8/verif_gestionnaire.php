@@ -1,0 +1,63 @@
+<?php
+
+    session_start();
+
+    if(!isset($_SESSION["droit"]) || ($_SESSION["droit"] != "admin" && $_SESSION["droit"] != "gestionnaire")) {
+        header("Location: login.php");
+        exit();
+    }
+
+    /*Role verification to access the manager page*/
+    
+    /*Database connection*/
+
+    $id_bd = mysqli_connect("localhost","root","root","sae23")
+        or die("Connexion impossible à la base de données");
+
+    /*To see the building assigned to the manager*/
+
+    $nom_gestionnaire = $_SESSION["identifiant"];
+    $batiment = mysqli_query($id_bd, "SELECT b.nom FROM batiment b JOIN gestionnaire g ON b.gestionnaire = g.id WHERE g.login = '$nom_gestionnaire';");
+
+    /*The statistics of the values retrieved*/
+
+    function statistique($resultat) {
+        $valeur = [];
+        while ($ligne = mysqli_fetch_assoc($resultat)) {
+            $valeur[] = $ligne['valeur'];
+        }
+
+        $min = min($valeur);
+        $max = max($valeur);
+        $moyenne = array_sum($valeur) / count($valeur);
+
+        return ['min' => $min, 'max' => $max, 'moyenne' => $moyenne];
+    }   
+
+    /*Retrieval of values*/
+
+    if($batiment) {
+        $ligne = mysqli_fetch_assoc($batiment);
+        $nom_bat = $ligne['nom'];
+        if($ligne) {
+            $message = "Le bâtiment géré par " . $nom_gestionnaire . " est : " . $nom_bat;
+            if($nom_bat == "batiment RT"){
+                $premiere_salle = mysqli_query($id_bd,"SELECT c.nom, m.valeur, m.date FROM capteur c JOIN mesure m ON c.id = m.capteur WHERE c.nom = 'E001' ORDER BY m.id DESC LIMIT 20;");
+                $deuxieme_salle = mysqli_query($id_bd,"SELECT c.nom, m.valeur, m.date FROM capteur c JOIN mesure m ON c.id = m.capteur WHERE c.nom = 'E105' ORDER BY m.id DESC LIMIT 20;");
+                $stats_premiere_salle = statistique($premiere_salle);
+                $stats_deuxieme_salle = statistique($deuxieme_salle);
+            } else {
+                $troisieme_salle = mysqli_query($id_bd,"SELECT c.nom, m.valeur, m.date FROM capteur c JOIN mesure m ON c.id = m.capteur WHERE c.nom = 'B202' ORDER BY m.id DESC LIMIT 20;");
+                $quatrieme_salle =mysqli_query($id_bd,"SELECT c.nom, m.valeur, m.date FROM capteur c JOIN mesure m ON c.id = m.capteur WHERE c.nom = 'B203' ORDER BY m.id DESC LIMIT 20;");
+                $stats_troisieme_salle = statistique($troisieme_salle);
+                $stats_quatrieme_salle = statistique($quatrieme_salle);
+            }
+        } else {
+            $message = "Aucun bâtiment n'est géré par " . $nom_gestionnaire;
+        }
+    }
+
+    mysqli_close($id_bd);
+    
+?>
+
