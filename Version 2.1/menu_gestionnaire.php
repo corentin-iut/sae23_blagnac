@@ -151,26 +151,8 @@
     </section>
     <section id="second"> <!--Dynamic graph-->
         <article>
-            <table id="first_tab">
-                <caption>Relevés de la salle E101</caption>
-                <tr><th>Température</th><th>Date</th></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-            </table>
-        </article>
-        <article>
-            <table id="second_tab">
-                <caption>Relevés de la salle E102</caption>
-                <tr><th>Température</th><th>Date</th></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-                <tr><td>10</td><td>Exemple</td></tr>
-            </table>
+            <canvas id="chart1"></canvas>
+            <canvas id="chart2"></canvas>
         </article>
     </section>
     <?php
@@ -235,5 +217,88 @@
         </article>
     </section>
     <script src="./script_graph.js"></script>
+    <script>
+        var ctx1 = document.getElementById('chart1').getContext('2d');
+
+        var dates_premiere_salle = <?php echo json_encode($dates_premiere_salle); ?>;
+        var valeurs_premiere_salle = <?php echo json_encode($valeurs_premiere_salle); ?>;
+
+        var dates_deuxieme_salle = <?php echo json_encode($dates_deuxieme_salle); ?>;
+        var valeurs_deuxieme_salle = <?php echo json_encode($valeurs_deuxieme_salle); ?>;
+
+        var chart1 = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: dates_premiere_salle.concat(dates_deuxieme_salle),
+                datasets: [{
+                    label: 'Première Salle',
+                    data: valeurs_premiere_salle,
+                    borderColor: 'rgba(255, 99, 132, 1)'
+                },
+                {
+                    label: 'Deuxième Salle',
+                    data: valeurs_deuxieme_salle,
+                    borderColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: chartOptions
+        });
+    </script>
+    <script>
+        var ctx2 = document.getElementById('chart2').getContext('2d');
+
+        var dates_troisieme_salle = <?php echo json_encode($dates_troisieme_salle); ?>;
+        var valeurs_troisieme_salle = <?php echo json_encode($valeurs_troisieme_salle); ?>;
+
+        var dates_quatrieme_salle = <?php echo json_encode($dates_quatrieme_salle); ?>;
+        var valeurs_quatrieme_salle = <?php echo json_encode($valeurs_quatrieme_salle); ?>;
+
+        var chart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: dates_troisieme_salle.concat(dates_quatrieme_salle),
+                datasets: [{
+                    label: 'Troisième Salle',
+                    data: valeurs_troisieme_salle,
+                    borderColor: 'rgba(153, 102, 255, 1)'
+                },
+                {
+                    label: 'Quatrième Salle',
+                    data: valeurs_quatrieme_salle,
+                    borderColor: 'rgba(255, 159, 64, 1)'
+                }]
+            },
+            options: chartOptions
+        });
+    </script>
+    <script>
+        var chartOptions = {
+            responsive: true, // Rend le graphique responsive
+            title: {
+                display: true, // Affiche le titre du graphique
+                text: 'Capteur Mesures par Salle' // Texte du titre
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time', // Type de l'axe X (temps)
+                    time: {
+                        unit: 'day' // Unité de temps (jour)
+                    },
+                    scaleLabel: {
+                        display: true, // Affiche le label de l'axe X
+                        labelString: 'Date' // Texte du label de l'axe X
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true, // Affiche le label de l'axe Y
+                        labelString: 'Valeur' // Texte du label de l'axe Y
+                    }
+                }]
+            }
+        };
+    </script>
+
+
 </body>
 </html>

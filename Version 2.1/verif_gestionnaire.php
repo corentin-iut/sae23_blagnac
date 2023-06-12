@@ -88,6 +88,39 @@
         $message2 = "Sélectionnez une date valide";
     }
 
+
+    $dates_premiere_salle = [];
+    $valeurs_premiere_salle = [];
+    while ($row = mysqli_fetch_array($premiere_salle, MYSQLI_ASSOC)) {
+        array_push($dates_premiere_salle, $row['date'] . ' ' . $row['horaire']);
+        array_push($valeurs_premiere_salle, $row['valeur']);
+    }
+
+    $dates_deuxieme_salle = [];
+    $valeurs_deuxieme_salle = [];
+    while ($row = mysqli_fetch_array($deuxieme_salle, MYSQLI_ASSOC)) {
+        array_push($dates_deuxieme_salle, $row['date'] . ' ' . $row['horaire']);
+        array_push($valeurs_deuxieme_salle, $row['valeur']);
+    }
+
+    $dates_troisieme_salle = [];
+    $valeurs_troisieme_salle = [];
+    while ($row = mysqli_fetch_array($troisieme_salle, MYSQLI_ASSOC)) {
+        array_push($dates_troisieme_salle, $row['date'] . ' ' . $row['horaire']);
+        array_push($valeurs_troisieme_salle, $row['valeur']);
+    }
+
+    $dates_quatrieme_salle = [];
+    $valeurs_quatrieme_salle = [];
+    while ($row = mysqli_fetch_array($quatrieme_salle, MYSQLI_ASSOC)) {
+        array_push($dates_quatrieme_salle, $row['date'] . ' ' . $row['horaire']);
+        array_push($valeurs_quatrieme_salle, $row['valeur']);
+    }
+
+
+
+
+
     mysqli_close($id_bd);
     
 ?>
