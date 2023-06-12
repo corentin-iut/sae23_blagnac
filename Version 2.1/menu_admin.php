@@ -110,28 +110,28 @@
                     <p>batiment RT</p>
                     <form method="post" action="">
                         <input type="hidden" name="login" value="batiment RT"> 
-                        <input type="submit" name="suppresr" value="Supprimer">
+                        <input type="submit" name="suppresr" value="Masquer">
                     </form>
         </div>
         <div class="bloc">
                     <p>batiment RT</p>
                     <form method="post" action="">
                         <input type="hidden" name="login" value="batiment RT"> 
-                        <input class="aj" type="submit" name="ajoutr" value="Ajouter">
+                        <input class="aj" type="submit" name="ajoutr" value="Afficher">
                     </form>
         </div>
         <div class="bloc">
                     <p>batiment info</p>
                     <form method="post" action="">
                         <input type="hidden" name="login" value="batiment info"> 
-                        <input type="submit" name="suppresi" value="Supprimer">
+                        <input type="submit" name="suppresi" value="Masquer">
                     </form>
         </div>
         <div class="bloc">
                     <p>batiment info</p>
                     <form method="post" action="">
                         <input type="hidden" name="login" value="batiment RT"> 
-                        <input class="aj" type="submit" name="ajouti" value="Ajouter">
+                        <input class="aj" type="submit" name="ajouti" value="Afficher">
                     </form>
         </div>
     </section>
