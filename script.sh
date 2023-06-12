@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Informations de connexion à la base de données MySQL
-host=fdb1027.eohost.com
-user=4210695_sae23
-password=motdepasse31
+host=lhcp3349.webapps.net
+user=iv5g2mc0_admin
+password=Motdepasse31!
 port=3306
-database=4210695_sae23  # Remplacez "votre_base_de_donnees" par le nom de votre base de données
+database=iv5g2mc0_sae21
 
 # Callback exécutée lors de la connexion au broker MQTT
 on_connect() {
@@ -30,11 +30,12 @@ on_message() {
 
     # Récupération de l'heure et la date actuelles
     horaire=$(date +"%H:%M:%S")
-    date=$(date +"%Y-%m-%d")
+    date=$(date +"%d/%m/%Y")
 
     # Insertion des données dans la base de données
     query="INSERT INTO MESURE (date, horaire, valeur, capteur) VALUES ('$date', '$horaire', '$temperature', '$devEUI')"
-    mysql -h "$host" -u "$user" -p"$password" -P "$port" "$database" -e "$query"
+    mysql -h "$host" -u "$user" -p"$password" -P "$port" -D "$database" -e "$query"
+
 }
 
 # Connexion au broker MQTT et configuration des callbacks
