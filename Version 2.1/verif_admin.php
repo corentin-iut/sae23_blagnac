@@ -21,6 +21,7 @@
     /*Deleting a handler*/
 
     if(isset($_POST['suppression'])) {
+        $nom_gestionnaire = $_POST['login'];
         $resultat = mysqli_query($id_bd, "DELETE FROM gestionnaire WHERE `login` = '$nom_gestionnaire';");
         header("Location: menu_admin.php");
         exit();
