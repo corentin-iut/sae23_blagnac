@@ -11,6 +11,7 @@
     <meta name="description" content="GRID - Exemple pour la prochaine SAE">
     <link rel="stylesheet" href="./style/style_gestion.css">
     <link rel="stylesheet" href="./style/style_consult.css">
+    <link rel="shortcut icon" href="./img/icons8-favicon-16.png" type="image/x-icon">
     <title> Gestion de projet</title>
 </head>
 
